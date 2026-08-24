@@ -53,10 +53,12 @@
         <!-- TARJETA 2: Buscar Historial de Reportes -->
         <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-900 flex flex-col">
             <h2 class="text-2xl font-bold text-blue-900 mb-4">Buscar Historial de Alumno</h2>
-            <div class="flex gap-2 mb-4">
-                <input type="text" id="buscarMatricula" placeholder="Ej. AL-1001" class="flex-1 px-3 py-2 border rounded focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                <button onclick="buscarHistorial()" class="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-bold px-4 py-2 rounded transition">Buscar</button>
-                <button onclick="verTodos()" class="bg-blue-900 hover:bg-blue-800 text-white font-bold px-4 py-2 rounded transition">Ver Todos</button>
+            <div class="flex flex-col sm:flex-row gap-2 mb-4">
+                <input type="text" id="buscarMatricula" placeholder="Ej. AL-1001" class="w-full sm:flex-1 px-3 py-2 border rounded focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <button onclick="buscarHistorial()" class="flex-1 sm:flex-none bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-bold px-4 py-2 rounded transition">Buscar</button>
+                    <button onclick="verTodos()" class="flex-1 sm:flex-none bg-blue-900 hover:bg-blue-800 text-white font-bold px-4 py-2 rounded transition">Ver Todos</button>
+                </div>
             </div>
             <div id="areaResultados" class="flex-1 bg-gray-50 border rounded p-4 overflow-y-auto max-h-72">
                 <p class="text-gray-400 text-center mt-10">Ingrese una matrícula para ver el historial.</p>
@@ -66,9 +68,9 @@
         <!-- TARJETA 3: Información de Alumnos (Centrada por defecto para Maestros) -->
         <div id="tarjetaAlumnos" class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-yellow-500 flex flex-col md:col-span-2 mx-auto w-full md:w-[calc(50%-0.75rem)] transition-all duration-300">
             <h2 class="text-2xl font-bold text-blue-900 mb-4">Directorio de Alumnos</h2>
-            <div class="flex gap-2 mb-4">
-                <input type="text" id="buscarInfoMatricula" placeholder="Ej. AL-1001" class="flex-1 px-3 py-2 border rounded focus:ring-2 focus:ring-yellow-400 focus:outline-none">
-                <button onclick="buscarInfoAlumno()" class="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-bold px-4 py-2 rounded transition">Consultar</button>
+            <div class="flex flex-col sm:flex-row gap-2 mb-4">
+                <input type="text" id="buscarInfoMatricula" placeholder="Ej. AL-1001" class="w-full sm:flex-1 px-3 py-2 border rounded focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                <button onclick="buscarInfoAlumno()" class="w-full sm:w-auto bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-bold px-4 py-2 rounded transition">Consultar</button>
             </div>
             <div id="areaInfoAlumno" class="flex-1 bg-gray-50 border rounded p-4 flex flex-col justify-center items-center min-h-[150px]">
                 <p class="text-gray-400 text-center">Busque un alumno para ver sus datos.</p>
