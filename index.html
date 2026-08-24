@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Escolar - Acceso Docente</title>
+    <!-- Cargamos Tailwind CSS por CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <!-- Contenedor Principal (Tarjeta Dividida) -->
+    <div class="flex flex-col md:flex-row w-full max-w-4xl bg-white shadow-2xl rounded-2xl overflow-hidden">
+        
+        <!-- MITAD IZQUIERDA: Bloque Institucional Azul -->
+        <div class="hidden md:flex md:w-1/2 bg-blue-900 flex-col justify-center items-center p-10 relative">
+            <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+            
+            <div class="z-10 text-center">
+                <!-- Imagen de marcador de posición -->
+                <img src="https://placehold.co/250x250/eab308/1e3a8a?text=Logo+Primaria" alt="Logo de la Escuela" class="mx-auto rounded-full mb-6 border-4 border-yellow-500 shadow-lg object-cover">
+                
+                <h2 class="text-3xl font-bold text-white mb-2">Sistema de Reportes</h2>
+                <p class="text-blue-200">Educando con valores y disciplina para un mejor futuro.</p>
+            </div>
+        </div>
+
+        <!-- MITAD DERECHA: Formularios -->
+        <div class="w-full md:w-1/2 p-8 sm:p-12 flex flex-col justify-center bg-gray-50 relative">
+            
+            <!-- VISTA 1: INICIO DE SESIÓN -->
+            <div id="loginView" class="max-w-md w-full mx-auto transition-opacity duration-300">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-extrabold text-blue-900 mb-2">Bienvenido</h1>
+                    <p class="text-gray-500 text-sm">Por favor, ingrese sus credenciales para acceder al sistema.</p>
+                </div>
+
+                <form id="loginForm" class="space-y-6">
+                    <div>
+                        <label for="username" class="block text-sm font-bold text-blue-900 mb-2">Usuario</label>
+                        <input type="text" id="username" name="username" placeholder="Ej. cgomez" 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 focus:outline-none transition duration-200 text-gray-800 bg-white shadow-sm" required>
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-sm font-bold text-blue-900 mb-2">Contraseña</label>
+                        <input type="password" id="password" name="password" placeholder="••••••••" 
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 focus:outline-none transition duration-200 text-gray-800 bg-white shadow-sm" required>
+                    </div>
+
+                    <button type="submit" id="btnSubmit" class="w-full flex justify-center items-center bg-yellow-500 hover:bg-yellow-400 text-blue-950 font-bold text-lg py-3 px-4 rounded-lg transition duration-200 shadow-md">
+                        <span id="btnText">Validar y Entrar</span>
+                        <svg id="spinner" class="animate-spin ml-2 h-5 w-5 text-blue-950 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        ¿Aún no tienes cuenta? 
+                        <button type="button" onclick="toggleVistas('register')" class="text-blue-900 font-bold hover:underline focus:outline-none">Regístrate aquí</button>
+                    </p>
+                </div>
+            </div>
+
+            <!-- VISTA 2: REGISTRO DE USUARIO (Oculto por defecto) -->
+            <div id="registerView" class="hidden max-w-md w-full mx-auto transition-opacity duration-300">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-extrabold text-blue-900 mb-2">Crear Cuenta</h1>
+                    <p class="text-gray-500 text-sm">Complete el formulario. Su cuenta quedará en espera de aprobación del director.</p>
+                </div>
+
+                <form id="registerForm" class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold text-blue-900 mb-1">Nombre</label>
+                            <input type="text" id="regNombre" placeholder="Ej. Carlos" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-blue-900 focus:ring-2 focus:ring-blue-200 focus:outline-none transition text-gray-800 bg-white" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-blue-900 mb-1">Apellido</label>
+                            <input type="text" id="regApellido" placeholder="Ej. Gómez" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-blue-900 focus:ring-2 focus:ring-blue-200 focus:outline-none transition text-gray-800 bg-white" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-blue-900 mb-1">Usuario deseado</label>
+                        <input type="text" id="regUsername" placeholder="Ej. cgomez" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-blue-900 focus:ring-2 focus:ring-blue-200 focus:outline-none transition text-gray-800 bg-white" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-blue-900 mb-1">Contraseña</label>
+                        <input type="password" id="regPassword" placeholder="••••••••" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-blue-900 focus:ring-2 focus:ring-blue-200 focus:outline-none transition text-gray-800 bg-white" required>
+                    </div>
+
+                    <button type="submit" id="btnRegisterSubmit" class="w-full flex justify-center items-center bg-blue-900 hover:bg-blue-800 text-white font-bold text-lg py-3 px-4 rounded-lg transition duration-200 shadow-md mt-4">
+                        <span id="btnRegisterText">Enviar Solicitud</span>
+                        <svg id="registerSpinner" class="animate-spin ml-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        ¿Ya tienes una cuenta? 
+                        <button type="button" onclick="toggleVistas('login')" class="text-yellow-600 font-bold hover:underline focus:outline-none">Inicia sesión</button>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPT DE CONEXIÓN A GOOGLE SHEETS -->
+    <script>
+        // Declaramos la URL del script globalmente
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyTJldS0vvZxvsJ70j5mDFYUzonfsLYOHk56b4D0YU058tDFIORZol-sVI3fv1wdsgn/exec'; 
+
+        // 1. FUNCIÓN PARA INTERCAMBIAR VISTAS (LOGIN / REGISTRO)
+        function toggleVistas(vista) {
+            const loginView = document.getElementById('loginView');
+            const registerView = document.getElementById('registerView');
+            
+            if (vista === 'register') {
+                loginView.classList.add('hidden');
+                registerView.classList.remove('hidden');
+            } else {
+                registerView.classList.add('hidden');
+                loginView.classList.remove('hidden');
+            }
+        }
+
+        // 2. LÓGICA DE INICIO DE SESIÓN
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            const btnSubmit = document.getElementById('btnSubmit');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('spinner');
+
+            btnSubmit.disabled = true;
+            btnText.innerText = "Validando...";
+            spinner.classList.remove('hidden');
+            
+            const datos = {
+                accion: "login",
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+
+            fetch(scriptURL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(datos) })
+            .then(response => response.json())
+            .then(data => {
+                btnSubmit.disabled = false;
+                btnText.innerText = "Validar y Entrar";
+                spinner.classList.add('hidden');
+
+                if (data.success) {
+                    localStorage.setItem('usuario_activo', JSON.stringify(data.usuario));
+                    window.location.href = "Panel.html"; 
+                } else {
+                    alert("Aviso: " + data.mensaje);
+                }
+            })
+            .catch(error => {
+                btnSubmit.disabled = false;
+                btnText.innerText = "Validar y Entrar";
+                spinner.classList.add('hidden');
+                alert("Hubo un problema de conexión. Inténtalo de nuevo.");
+            });
+        });
+
+        // 3. LÓGICA DE REGISTRO
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const btnSubmit = document.getElementById('btnRegisterSubmit');
+            const btnText = document.getElementById('btnRegisterText');
+            const spinner = document.getElementById('registerSpinner');
+
+            btnSubmit.disabled = true;
+            btnText.innerText = "Enviando...";
+            spinner.classList.remove('hidden');
+
+            const datosRegistro = {
+                accion: "registrar_usuario",
+                datos: {
+                    nombre: document.getElementById('regNombre').value,
+                    apellido: document.getElementById('regApellido').value,
+                    username: document.getElementById('regUsername').value,
+                    password: document.getElementById('regPassword').value
+                }
+            };
+
+            fetch(scriptURL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(datosRegistro) })
+            .then(response => response.json())
+            .then(data => {
+                btnSubmit.disabled = false;
+                btnText.innerText = "Enviar Solicitud";
+                spinner.classList.add('hidden');
+
+                if (data.success) {
+                    alert(data.mensaje); // Muestra el éxito de registro
+                    document.getElementById('registerForm').reset(); // Limpia el formulario
+                    toggleVistas('login'); // Regresa a la vista de login automáticamente
+                } else {
+                    alert("Error: " + data.mensaje);
+                }
+            })
+            .catch(error => {
+                btnSubmit.disabled = false;
+                btnText.innerText = "Enviar Solicitud";
+                spinner.classList.add('hidden');
+                alert("Hubo un problema de conexión. Inténtalo de nuevo.");
+            });
+        });
+    </script>
+</body>
+</html>
